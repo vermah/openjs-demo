@@ -1,0 +1,46 @@
+<script src="https://cdn.jsdelivr.net/npm/opentype.js@latest/dist/opentype.min.js"></script>
+
+<html>
+
+<body>
+    <form ref='uploadForm' id='uploadForm' action='http://localhost:3000/files' method='post' encType="multipart/form-data">
+        <input type="file" name="font" id="file" />
+        <input type="hidden" name="appId" value="appid">
+        <input type="hidden" name="username" value="username">
+        <input type="hidden" name="password" value="password">
+        <input type='submit' value='Upload!' />
+    </form>
+    <textarea id="names">
+
+    </textarea>
+    <textarea id="glyphs">
+
+        </textarea>
+</body>
+
+</html>
+<script>
+    var fileButton = document.getElementById('file');
+    fileButton.addEventListener('change', onReadFile, false);
+
+    function onReadFile(e) {
+
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            try {
+                font = opentype.parse(e.target.result);
+                var cache = [];
+                document.getElementById('glyphs').innerText = JSON.stringify(font.glyphs.glyphs);
+                document.getElementById('names').innerText = JSON.stringify(font.names);
+            } catch (err) {
+
+            }
+        };
+        reader.onerror = function (err) {
+
+        };
+
+        reader.readAsArrayBuffer(file);
+    }
+</script>
