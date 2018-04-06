@@ -1,6 +1,8 @@
 # openjs-demo
 To read font file and see what metadata it can read.
-Currently fetching
+* Below formats working
+* * Web fonts: woff, ttf
+* * Desktyop font: ttf, otf
 * Font.names 
 ```
 {
